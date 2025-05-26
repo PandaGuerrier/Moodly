@@ -1,0 +1,8 @@
+{
+  "android": {
+    "package": "com.pandaguerrier.moodly"
+  },
+  "ios": {
+    "bundleIdentifier": "com.pandaguerrier.moodly"
+  }
+}

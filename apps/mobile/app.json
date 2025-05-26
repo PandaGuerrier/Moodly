@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Moodly",
+    "slug": "moodly",
+    "version": "1.0.0",
+    "scheme": "moodly",
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": [
+      "expo-router",
+      "expo-apple-authentication"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/images/adaptive-icon.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "usesAppleSignIn": true,
+      "bundleIdentifier": "com.pandaguerrier.moodly",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.pandaguerrier.moodly"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f403aba3-27ca-4b69-8bb6-2b90919f0f5e"
+      }
+    }
+  }
+}
