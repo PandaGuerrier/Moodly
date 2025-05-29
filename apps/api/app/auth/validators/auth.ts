@@ -14,3 +14,14 @@ export const createAppleValidator = vine.compile(
     }),
   })
 )
+
+export const createEmailValidator = vine.compile(
+  vine.object({
+    email: vine.string().email(),
+    password: vine.string().minLength(6),
+    fullName: vine.object({
+      familyName: vine.string().optional(),
+      givenName: vine.string().optional(),
+    }),
+  })
+)

@@ -49,6 +49,8 @@ export default defineConfig({
     // auth
     () => import('#auth/routes'),
     () => import('#child/routes'),
+    // activity
+    () => import('#activities/routes'),
     () => import('#start/kernel')],
 
   /*
