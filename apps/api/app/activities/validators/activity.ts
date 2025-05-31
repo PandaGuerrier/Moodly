@@ -1,11 +1,9 @@
 import vine from '@vinejs/vine'
 
-export const createChildValidator = vine.compile(
+export const createAssignActivityValidator = vine.compile(
   vine.object({
-    firstName: vine.string(),
-    lastName: vine.string(),
-    nickname: vine.string().optional(),
-    birthDate: vine.string(),
+    childId: vine.number(),
+    activityId: vine.number()
   })
 )
 
@@ -15,6 +13,7 @@ export const createPhotoValidator = vine.compile(
       base64: vine.string(),
       type: vine.string(),
       name: vine.string()
-    })
+    }),
+    childId: vine.number()
   })
 )

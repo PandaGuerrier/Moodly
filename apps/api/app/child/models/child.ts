@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeFetch, column } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeFetch, column, hasMany } from '@adonisjs/lucid/orm'
 import { attachment } from '@jrmc/adonis-attachment'
 import type { Attachment } from '@jrmc/adonis-attachment/types/attachment'
+import Activity from '#activities/models/activity'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Child extends BaseModel {
   @column({ isPrimary: true })
@@ -29,6 +31,9 @@ export default class Child extends BaseModel {
   declare avatarUrl: string | null
 
   // other logic like friends, levels, etc.
+
+  @hasMany(() => Activity)
+  declare activities: HasMany<typeof Activity>
 
   @beforeFetch()
   static async preComputeAvatarUrl(child: Child) {

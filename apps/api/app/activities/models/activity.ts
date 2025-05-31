@@ -14,7 +14,7 @@ export default class Activity extends BaseModel {
   declare defaultActivityId: number
 
   @column()
-  declare userId: number
+  declare childId: number
 
   @column()
   declare isFinished: boolean
