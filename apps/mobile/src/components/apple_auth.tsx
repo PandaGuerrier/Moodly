@@ -16,7 +16,7 @@ export function AppleAuthButton(){
             AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
           }
           cornerRadius={500}
-          style={tw.style(`w-64 h-12`)}
+          style={tw`w-84 h-14 mb-4 mt-5`}
           onPress={async () => {
             try {
               const credential = await AppleAuthentication.signInAsync({
@@ -33,7 +33,7 @@ export function AppleAuthButton(){
               await storeData("apple-id", credential);
               const response = await ApiManager.getInstance().post("/auth/apple", {
                 apple: credential,
-              }, true);
+              }, {}, true);
 
               console.log("get response from auth:");
               console.log(response.data);

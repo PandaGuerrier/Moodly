@@ -7,6 +7,12 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{
             headerShown: false,
         }} />
+      <Stack.Screen name="childs" options={{
+        headerShown: false,
+      }} />
+      <Stack.Screen name="activities" options={{
+        headerShown: false,
+      }} />
     </Stack>
   )
 }

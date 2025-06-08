@@ -1,30 +1,24 @@
 export default class Child {
   id: number;
-  firstName: string;
-  lastName: string;
   birthDate: Date;
   nickname?: string;
-  avatarUrl?: string;
+  avatar?: string;
   createdAt: Date;
   updatedAt: Date;
 
   constructor(
     id: number,
-    firstName: string,
-    lastName: string,
     birthDate: Date,
-    nickname: string | undefined,
-    avatarUrl: string | undefined,
+    nickname: string,
+    avatar: string,
     createdAt: Date,
     updatedAt: Date,
   ) {
     this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
     this.birthDate = birthDate;
     this.nickname = nickname;
     this.createdAt = createdAt;
-    this.avatarUrl = avatarUrl; // Initialize avatarUrl as undefined
+    this.avatar = avatar;
     this.updatedAt = updatedAt;
   }
 
@@ -48,11 +42,9 @@ export default class Child {
   static fromJSON(json: any): Child {
     return new Child(
       json.id,
-      json.firstName,
-      json.lastName,
       new Date(json.birthDate),
       json.nickname,
-      json.avatarUrl || undefined, // Use avatarUrl if it exists, otherwise undefined
+      json.avatar, // Use avatarUrl if it exists, otherwise undefined
       new Date(json.createdAt),
       new Date(json.updatedAt),
     );
@@ -61,8 +53,6 @@ export default class Child {
   toJSON(): any {
     return {
       id: this.id,
-      firstName: this.firstName,
-      lastName: this.lastName,
       birthDate: this.birthDate.toISOString(),
       age: this.age,
       nickname: this.nickname,
@@ -72,18 +62,15 @@ export default class Child {
   }
 
   static getEmpty(
-    firstName: string,
-    lastName: string,
-    nickName: string,
+    nickname: string,
     birthDate: Date,
+    avatar: string
   ): Child {
     return new Child(
       -1, // -1 indicates a new child that hasn't been saved yet
-      firstName || "",
-      lastName || "",
-      birthDate || new Date(),
-      nickName || undefined,
-      undefined, // avatarUrl is not set for new children
+      birthDate,
+      nickname,
+      avatar,
       new Date(),
       new Date(),
     );

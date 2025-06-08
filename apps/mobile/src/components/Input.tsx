@@ -21,14 +21,14 @@ type ButtonProps = {
 export const Input = React.forwardRef<
   React.ComponentRef<typeof Pressable>,
   ButtonProps
->(({ variant = "solid", disabled, fullWidth = false, setData, errors, name, displayName }, ref) => {
+>(({ variant = "solid", setData, errors, name, displayName }, ref) => {
   const [isClicked, setIsClicked] = useState(false);
   const variantTxt = styles[variant] || styles["solid"];
 
   return (
       <View style={tw`flex items-center justify-center rounded-full px-4 w-full text-md mt-5 `}>
         <Text style={tw`text-base text-start w-full px-3`}>{displayName}</Text>
-        <TextInput style={
+        <TextInput onPress={() => setIsClicked(true)} onPressOut={() => setIsClicked(false)} style={
           tw`flex items-center justify-center rounded-full py-3 px-2 w-full text-md  ${variantTxt} ${errors[name] ? `border border-red-400 bg-red-200` : ``}`
         } onChangeText={(text) => setData(name, text)}>
           <Text></Text>

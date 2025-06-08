@@ -13,7 +13,22 @@
     },
     "plugins": [
       "expo-router",
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre caméra",
+          "microphonePermission": "Autoriser $(PRODUCT_NAME) à utiliser votre microphone",
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Autoriser $(PRODUCT_NAME) à utiliser votre microphone"
+        }
+      ],
+      "expo-audio"
     ],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

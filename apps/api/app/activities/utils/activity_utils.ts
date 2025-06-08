@@ -8,6 +8,12 @@ export async function createFileFromBase64(base64: string, filePath: string): Pr
     // Decode the Base64 string
     const fileBuffer = Buffer.from(base64Data, 'base64');
 
+    // Ensure the directory exists
+    const dir = filePath.substring(0, filePath.lastIndexOf('/'));
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
     // Write the file to the specified path
     fs.writeFile(filePath, fileBuffer, (err) => {
       if (err) {

@@ -10,6 +10,7 @@ export default class User {
   appleAuthorizationCode: string;
   appleUser: string;
   childs: Child[];
+  selectedChild?: Child | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date | null;
@@ -34,11 +35,14 @@ export default class User {
     this.appleAuthorizationCode = appleAuthorizationCode;
     this.appleUser = appleUser;
     this.childs = childs;
+    this.selectedChild = null; // Initialize selectedChild as null
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt || null;
     User.instance = this; // Set the singleton instance
   }
+
+
 
   /// Returns the current user instance from local storage or fetches it from the server
   static async getCurrentUser(force: boolean = false): Promise<User | null> {
@@ -121,11 +125,11 @@ export default class User {
 
   async addChild(child: Child): Promise<void> {
     console.log("Adding child:", child);
+    console.log("Child:", child.nickname);
     const response = await ApiManager.getInstance().post("/child",  {
-      firstName: child.firstName,
-      lastName: child.lastName,
       birthDate: child.birthDate.toISOString(),
-      nickname: child.nickname || undefined,
+      nickname: child.nickname,
+      avatar: child.avatar || "sanglier",
     });
     console.log("Response from server:", response);
 

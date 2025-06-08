@@ -9,5 +9,7 @@ router.group(() => {
 router.group(() => {
   router.post('/assign', [ActivitiesController, 'assign'])
   router.post('/chat', [ActivitiesController, 'chat'])
+  router.get('/:id', [ActivitiesController, 'index'])
+  router.get('/:id/:activityId', [ActivitiesController, 'show'])
 }).prefix('/activities')
 

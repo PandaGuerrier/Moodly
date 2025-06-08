@@ -20,7 +20,7 @@ export default function HomePage() {
           router.push("/childs");
           return;
         } else {
-          console.error("No user found, staying on login page");
+          console.log("No user found, staying on login page");
         }
       })
       .finally(async () => {

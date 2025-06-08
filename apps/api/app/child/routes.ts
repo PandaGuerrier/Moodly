@@ -5,4 +5,5 @@ import ChildController from '#child/controllers/child_controller'
 router.group(() => {
   router.get('/get/all', [ChildController, 'getAll'])
   router.post('/', [ChildController, 'add'])
+  router.delete('/:id', [ChildController, 'delete'])
 }).prefix('/child')

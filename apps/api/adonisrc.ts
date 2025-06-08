@@ -51,7 +51,9 @@ export default defineConfig({
     () => import('#child/routes'),
     // activity
     () => import('#activities/routes'),
-    () => import('#start/kernel')],
+    () => import('#start/kernel'),
+    () => import('#start/groq')
+  ],
 
   /*
   |--------------------------------------------------------------------------

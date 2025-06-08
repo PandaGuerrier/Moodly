@@ -1,9 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { createAssignActivityValidator, createPhotoValidator } from '#activities/validators/activity'
 import DefaultActivity from '#activities/models/default_activity'
-import Groq from 'groq-sdk'
-import * as fs from 'fs'
 import Env from '#start/env'
+import groq from '#start/groq'
+import { createFileFromBase64 } from '#activities/utils/activity_utils'
 
 export default class ActivitiesController {
   async assign({ request, auth, response }: HttpContext) {
@@ -29,6 +29,69 @@ export default class ActivitiesController {
     })
   }
 
+  async index({ auth, response, params }: HttpContext) {
+    const user = await auth.authenticateUsing(['api'])
+    const child = await user.related('childs').query().where('id', params.id).firstOrFail()
+    await child.load('activities', (query) => {
+      query.preload('defaultActivity')
+    })
+
+    return response.status(200).json({
+      activities: child.activities.map(activity => {
+        return {
+          id: activity.id,
+          isFinished: activity.isFinished,
+          isStarted: activity.isStarted,
+          defaultActivity: {
+            id: activity.defaultActivity.id,
+            name: activity.defaultActivity.name,
+            description: activity.defaultActivity.description,
+            type: activity.defaultActivity.type,
+            data: activity.defaultActivity.data,
+          },
+          data: activity.data,
+        }
+      })
+    })
+  }
+
+  async show({ auth, response, params }: HttpContext) {
+    const user = await auth.authenticateUsing(['api'])
+    const child = await user.related('childs').query().where('id', params.id).firstOrFail()
+    await child.load('activities', (query) => {
+      query.preload('defaultActivity')
+    })
+
+    const activity = child.activities.find(activity => activity.id === params.activityId)
+    if (!activity) {
+      return response.status(404).json({ message: 'Activity not found' })
+    }
+
+    return response.status(200).json({
+      activity: {
+        id: activity.id,
+        isFinished: activity.isFinished,
+        isStarted: activity.isStarted,
+        defaultActivity: {
+          id: activity.defaultActivity.id,
+          name: activity.defaultActivity.name,
+          description: activity.defaultActivity.description,
+          type: activity.defaultActivity.type,
+          data: activity.defaultActivity.data,
+        },
+        data: activity.data,
+      }
+    })
+  }
+
+  /**
+   * Handle chat requests for activities.
+   * This method processes a photo uploaded by a child and generates a response
+   * using the Groq AI model to explain the object in the photo.
+   *
+   * @param {HttpContext} context - The HTTP context containing request, auth, and response objects.
+   * @returns {Promise<Response>} - A JSON response with the AI-generated explanation of the object in the photo.
+   */
   async chat({ request, auth, response }: HttpContext) {
     const { photo, childId } = await request.validateUsing(createPhotoValidator)
     const user = await auth.authenticateUsing(['api'])
@@ -36,11 +99,8 @@ export default class ActivitiesController {
     const child = await user.related('childs').query().where('id', childId).firstOrFail()
     const fileName = `${Date.now()}-${photo.name}`
 
-    await this.createFileFromBase64(photo.base64, `storage/uploads/${fileName}`)
+    await createFileFromBase64(photo.base64, `storage/uploads/chat/${fileName}`)
 
-    const groq = new Groq({
-      apiKey: process.env.GROQ_API_KEY || '',
-    })
     const chatCompletion = await groq.chat.completions.create({
       "messages": [
         {
@@ -57,7 +117,7 @@ export default class ActivitiesController {
             {
               "type": "image_url",
               "image_url": {
-                "url": `${Env.get("IMAGE_URL")}/uploads/uploads/${fileName}`,
+                "url": `${Env.get("IMAGE_URL")}/uploads/uploads/chat/${fileName}`,
               }
             }
           ]
@@ -76,23 +136,4 @@ export default class ActivitiesController {
       message: chatCompletion.choices[0].message.content,
     })
   }
-
-  async createFileFromBase64(base64: string, filePath: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      // Extract the Base64 data (if it includes a data URI prefix)
-      const base64Data = base64.replace(/^data:.*;base64,/, '');
-
-      // Decode the Base64 string
-      const fileBuffer = Buffer.from(base64Data, 'base64');
-
-      // Write the file to the specified path
-      fs.writeFile(filePath, fileBuffer, (err) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
-    });
-  }
-
 }

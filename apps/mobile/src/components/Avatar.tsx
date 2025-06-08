@@ -13,15 +13,16 @@ import * as Haptics from "expo-haptics";
 
 type AvatarProps = {
   onPress?: () => void;
+  onLongPress?: () => void;
   disabled?: boolean;
-  title?: string;
+  title: string;
   imageUrl: string;
 } & PressableProps;
 
 export const Avatar = React.forwardRef<
   React.ComponentRef<typeof Pressable>,
   AvatarProps
->(({ onPress, disabled, title, imageUrl }, ref) => {
+>(({ onPress, onLongPress, disabled, title, imageUrl }, ref) => {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
@@ -34,24 +35,30 @@ export const Avatar = React.forwardRef<
             onPress();
           }
         }}
+        onLongPress={async () => {
+          await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          if (onLongPress) {
+            onLongPress();
+          }
+        }}
         onPressIn={() => setIsClicked(true)}
         onPressOut={() => setIsClicked(false)}
         className={"duration"}
         style={tw.style(
-          `rounded-full ` +
+          `rounded-full w-full ` +
             (isClicked ? "scale-95 " : " ") +
             (disabled ? "opacity-50" : "opacity-100"),
         )}
         disabled={disabled}
       >
         <Image
-          style={tw`w-24 h-24 rounded-full border-2 border-white`}
+          style={tw`w-28 h-28 rounded-full`}
           source={{
             uri: imageUrl,
           }}
         />
-        <Text style={tw`text-center text-base font-semibold text-white `}>
-          {title || " "}
+        <Text style={tw`text-center text-base font-semibold text-white w-full `}>
+          {title}
         </Text>
       </Pressable>
     </View>

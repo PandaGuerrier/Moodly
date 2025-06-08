@@ -11,7 +11,7 @@ export class ApiManager {
     console.log("API URL", process.env.EXPO_PUBLIC_API_URL);
     this.api = axios.create({
       baseURL: process.env.EXPO_PUBLIC_API_URL,
-      timeout: 10000,
+      timeout: 500000,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -70,23 +70,51 @@ export class ApiManager {
     return !!this.api.defaults.headers.Authorization;
   }
 
-  public async post(url: string, data: any, bypassAuth: boolean = false) {
+  public async post(url: string, data: any, headers = {}, bypassAuth: boolean = false) {
     if (bypassAuth) {
+      console.log("Bypassing authorization for POST request:", url);
       return await this.api.post(url, data);
     }
 
     const isAuthorized = await this.checkAuthorization();
     if (!isAuthorized) {
-      console.log("POST ERROR", url, "Authorization header is missing.");
       throw new Error("Authorization header is missing.");
     }
 
-    console.log("POST URL", url, "DATA", data);
     try {
-      return await this.api.post(url, data);
+      return await this.api.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+          ...this.headers,
+          ...headers,
+        },
+      });
     } catch (error) {
       console.log("POST ERROR", url, error);
       return error;
+    }
+  }
+
+
+  public async postFormData(url: string, formData: FormData, headers = {}) {
+    const isAuthorized = await this.checkAuthorization();
+    if (!isAuthorized) {
+      throw new Error("Authorization header is missing.");
+    }
+
+    console.log("POST FORM DATA", url, formData);
+
+    try {
+      return await this.api.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          ...this.headers,
+          ...headers,
+        },
+      });
+    } catch (error) {
+      console.error("POST FORM DATA ERROR", url, error);
+      throw error; // Re-throw the error for handling by the caller
     }
   }
 
