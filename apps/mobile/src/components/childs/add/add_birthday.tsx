@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import tw from "twrnc";
-import { Button } from "~/components/Button";
+import { Button } from "~/components/ui/Button";
 import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 

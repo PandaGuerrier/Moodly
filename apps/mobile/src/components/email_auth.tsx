@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { Button } from "~/components/Button";
+import { Button } from "~/components/ui/Button";
 
 export function EmailAuthButton() {
   const router = useRouter();

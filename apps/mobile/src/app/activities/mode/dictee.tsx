@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import { useAudioPlayer } from 'expo-audio';
 import * as FileSystem from 'expo-file-system';
 import { useEffect, useState } from 'react';
-import { Button } from "~/components/Button";
+import { Button } from "~/components/ui/Button";
 
 export default function Dictee() {
   const [loading, setLoading] = useState(false);

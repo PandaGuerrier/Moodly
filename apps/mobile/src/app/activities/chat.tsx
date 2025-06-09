@@ -5,7 +5,6 @@ import tw from 'twrnc'
 import { ApiManager } from '~/utils/api/api_manager'
 import { AxiosError } from 'axios'
 import User from '~/models/user'
-import Svg, { Path } from 'react-native-svg'
 
 export default function Chat() {
   const [facing, setFacing] = useState<CameraType>("back");

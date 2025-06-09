@@ -6,7 +6,7 @@ import {
   BottomSheetView,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { Button } from "~/components/Button";
+import { Button } from "~/components/ui/Button";
 import { useForm } from "~/utils/api/form";
 import tw from "twrnc";
 import { useRouter } from "expo-router";

@@ -1,6 +1,6 @@
 import { Text, View, SafeAreaView } from 'react-native'
 import tw from 'twrnc'
-import { Input } from '~/components/Input'
+import { Input } from '~/components/ui/Input'
 import { useState } from 'react'
 
 export default function HomePage() {

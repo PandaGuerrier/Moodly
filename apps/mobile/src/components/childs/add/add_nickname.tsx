@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import { Input } from "~/components/Input";
+import { Input } from "~/components/ui/Input";
 import tw from "twrnc";
 
 interface Props {

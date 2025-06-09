@@ -12,7 +12,7 @@ import { twMerge } from 'tailwind-merge'
 import Svg, { Path, Rect } from 'react-native-svg';
 import tw from 'twrnc'
 import { Pressable, Text } from 'react-native'
-import { Button } from '~/components/Button'
+import { Button } from '~/components/ui/Button'
 
 interface ModalContextType {
   open: boolean;

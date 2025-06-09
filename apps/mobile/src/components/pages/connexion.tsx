@@ -1,6 +1,6 @@
 import { SafeAreaView, Text, View } from 'react-native'
 import tw from 'twrnc'
-import { AppleAuthButton } from '~/components/apple_auth'
+import { AppleAuthButton } from '~/components/ui/apple_auth'
 import { EmailAuthButton } from '~/components/email_auth'
 
 export default function Connexion() {
