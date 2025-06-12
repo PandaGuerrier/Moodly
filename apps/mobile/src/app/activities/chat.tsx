@@ -82,18 +82,27 @@ export default function Chat() {
       <CameraView style={tw`flex-1`} facing={facing} ref={ref}>
         <View style={tw`h-[100%] flex items-center justify-end py-8`}>
           {loading ? (
-            <View style={tw`p-5 bg-gray-600 rounded-md mb-4`}>
+            <View style={[
+              tw`p-5 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
+              { borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.4)', shadowColor: '#fff', shadowOpacity: 0.1, shadowRadius: 15 }
+            ]}>
               <ActivityIndicator size="large" color="white" />
             </View>
           ) : message ? (
             <Text
-              style={tw`text-white text-md p-4 bg-gray-600 rounded-md mb-4`}
+              style={[
+                tw`text-white text-md p-4 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
+                { borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.4)', shadowColor: '#fff', shadowOpacity: 0.1, shadowRadius: 15 }
+              ]}
             >
               {message}
             </Text>
           ) : (
             <Text
-              style={tw`text-white text-md p-4 bg-gray-600 rounded-md mb-4`}
+              style={[
+                tw`text-white text-md p-4 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
+                { borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.4)', shadowColor: '#fff', shadowOpacity: 0.1, shadowRadius: 15 }
+              ]}
             >
               Prenez une photo pour commencer
             </Text>
