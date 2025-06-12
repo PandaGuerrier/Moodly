@@ -23,3 +23,14 @@ export async function createFileFromBase64(base64: string, filePath: string): Pr
     });
   });
 }
+
+export async function deleteFile(filePath: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  });
+}

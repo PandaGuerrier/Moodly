@@ -3,7 +3,7 @@ import { createAssignActivityValidator, createPhotoValidator } from '#activities
 import DefaultActivity from '#activities/models/default_activity'
 import Env from '#start/env'
 import groq from '#start/groq'
-import { createFileFromBase64 } from '#activities/utils/activity_utils'
+import { createFileFromBase64, deleteFile } from '#activities/utils/activity_utils'
 
 export default class ActivitiesController {
   async assign({ request, auth, response }: HttpContext) {
@@ -105,11 +105,11 @@ export default class ActivitiesController {
       "messages": [
         {
           "role": "system",
-          "content": `Tu es un assistant pour un enfant qui est né le ${child.birthDate.locale}. Il a ${new Date().getFullYear() - child.birthDate.year} ans et qui s'appelle ${child.firstName} ${child.lastName}, qui a comme surnom ${child.nickname}. Il doit prendre en photo des objets, et tu dois lui expliquer ce que c'est que cet objet, ne fait pas attention a l'arrière plan. Voici la photo :`
+          "content": `Tu es un assistant pour un enfant qui est né le ${child.birthDate.locale}. Il a ${new Date().getFullYear() - child.birthDate.year} ans et qui s'appelle ${child.nickname}, qui a comme surnom ${child.nickname}. Il doit prendre en photo des objets, et tu dois lui expliquer ce que c'est que cet objet, ne fait pas attention a l'arrière plan. Voici la photo :`
         },
         {
           "role": "system",
-          "content": `Ne pose aucunes question, Ne dis pas bonjour, va direct au but. Et fait le texte en 100 mots maximum. Explique ce qu'est l'objet, et si c'est une fleur son nom et sa particularité, si c'est un animal son nom et son habitat, si c'est un objet du quotidien son utilité, etc. Ne pose aucune question a la fin.`
+          "content": `Ne pose aucunes question, Ne dis pas bonjour, va direct au but. Et fait le texte en 100 mots maximum. Explique ce qu'est l'objet, et si c'est une fleur son nom et sa particularité, si c'est un animal son nom et son habitat, si c'est un objet du quotidien son utilité, etc. Ne pose aucune question a la fin explique le pour un enfant, c'est a dire des explications simple sans trop de détails, juste comprendre l'utilité.`
           },
         {
           "role": "user",
@@ -132,8 +132,10 @@ export default class ActivitiesController {
     });
 
     console.log('Chat completion response:', chatCompletion.choices[0].message.content);
-    return response.status(200).json({
+    response.status(200).json({
       message: chatCompletion.choices[0].message.content,
     })
+
+    await deleteFile(`storage/uploads/chat/${fileName}`)
   }
 }
