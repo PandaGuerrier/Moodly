@@ -11,6 +11,12 @@ export default class extends BaseSchema {
       table.enu('type', ['photo', 'calcul', 'dictee', 'audio']).notNullable()
       table.boolean('is_active').defaultTo(true)
       table.json('data').notNullable().defaultTo('{}')
+      table.integer('age')
+      table.integer('max_age').nullable()
+      table.integer('difficulty').unsigned().defaultTo(50) // Default difficulty set to 50
+
+      table.integer('category_id').unsigned().nullable()
+      table.foreign('category_id').references('id').inTable('categories').onDelete('SET NULL')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

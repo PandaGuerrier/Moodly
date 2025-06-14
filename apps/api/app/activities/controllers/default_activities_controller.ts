@@ -1,11 +1,17 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import DefaultActivity from '#activities/models/default_activity'
+import Category from '#common/models/category'
 
 export default class DefaultActivitiesController {
   async index({ response }: HttpContext) {
-    const activities = await DefaultActivity.query().where('is_active', true).orderBy('created_at', 'desc');
+    const categories = await Category.query()
+      .preload('activities', (query) => {
+        query.where('isActive', true).orderBy('difficulty', 'desc')
+      })
+      .orderBy('name', 'asc');
+
+
     return response.status(200).json({
-      activities: activities.map(activity => activity.serialize())
+      categories: categories.map((category: Category) => category.serialize()),
     });
   }
 }

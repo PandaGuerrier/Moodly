@@ -21,6 +21,7 @@
     "#auth/*": "./app/auth/*.js",
     "#child/*": "./app/child/*.js",
     "#activities/*": "./app/activities/*.js",
+    "#common/*": "./app/common/*.js",
     "#exceptions/*": "./app/exceptions/*.js"
   },
   "devDependencies": {
