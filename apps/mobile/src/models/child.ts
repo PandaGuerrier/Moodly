@@ -1,25 +1,20 @@
 export default class Child {
   id: number;
   birthDate: Date;
-  nickname?: string;
+  nickname: string;
   avatar?: string;
+  intelligence: number; // Optional intelligence property
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(
-    id: number,
-    birthDate: Date,
-    nickname: string,
-    avatar: string,
-    createdAt: Date,
-    updatedAt: Date,
-  ) {
-    this.id = id;
-    this.birthDate = birthDate;
-    this.nickname = nickname;
-    this.createdAt = createdAt;
-    this.avatar = avatar;
-    this.updatedAt = updatedAt;
+  constructor(child: Partial<Child>) {
+    this.id = child.id || 0; // Default to 0 if not provided
+    this.birthDate = child.birthDate ? new Date(child.birthDate) : new Date(); // Default to current date if not provided
+    this.intelligence = child.intelligence || 0; // Initialize intelligence
+    this.nickname = child.nickname || ''; // Default to empty string if not provided
+    this.createdAt = child.createdAt ? new Date(child.createdAt) : new Date(); // Default to current date if not provided
+    this.avatar = child.avatar || undefined; // Use avatarUrl if it exists, otherwise undefined
+    this.updatedAt = child.updatedAt ? new Date(child.updatedAt) : new Date(); // Default to current date if not provided
   }
 
   get age(): number {
@@ -40,14 +35,16 @@ export default class Child {
   }
 
   static fromJSON(json: any): Child {
-    return new Child(
-      json.id,
-      new Date(json.birthDate),
-      json.nickname,
-      json.avatar, // Use avatarUrl if it exists, otherwise undefined
-      new Date(json.createdAt),
-      new Date(json.updatedAt),
-    );
+    return new Child({
+      id: json.id,
+      birthDate: new Date(json.birthDate),
+      age: json.age,
+      nickname: json.nickname,
+      avatar: json.avatar, // Assuming avatar is a string URL
+      createdAt: new Date(json.createdAt),
+      updatedAt: new Date(json.updatedAt),
+      intelligence: json.intelligence || 0, // Default to 0 if not provided
+    });
   }
 
   toJSON(): any {
@@ -66,13 +63,14 @@ export default class Child {
     birthDate: Date,
     avatar: string
   ): Child {
-    return new Child(
-      -1, // -1 indicates a new child that hasn't been saved yet
-      birthDate,
-      nickname,
-      avatar,
-      new Date(),
-      new Date(),
-    );
+    return new Child({
+      id: 0,
+      nickname: nickname,
+      birthDate: birthDate,
+      avatar: avatar,
+      intelligence: 0, // Default intelligence
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 }

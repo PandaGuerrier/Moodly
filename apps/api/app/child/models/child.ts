@@ -20,6 +20,14 @@ export default class Child extends BaseModel {
   declare avatar: string
 
   // other logic like friends, levels, etc.
+  @column()
+  declare intelligence: number // 1 to 100
+
+  @column()
+  declare level: number
+
+  @column()
+  declare experience: number // Experience points for the child
 
   @hasMany(() => Activity)
   declare activities: HasMany<typeof Activity>
