@@ -1,11 +1,11 @@
-import { View, Alert } from "react-native";
+import { Alert, View } from "react-native";
 import tw from "twrnc";
 import { storeData } from "~/utils/store/storage";
 import { useRouter } from "expo-router";
-import Child from '~/models/child'
-import { Avatar } from '~/components/Avatar'
-import User from '~/models/user'
-import { ApiManager } from '~/utils/api/api_manager'
+import Child from "~/models/child";
+import { Avatar } from "~/components/Avatar";
+import User from "~/models/user";
+import { ApiManager } from "~/utils/api/api_manager";
 
 export default function ChildComponent({ child }: { child: Child }) {
   const router = useRouter();
@@ -28,10 +28,16 @@ export default function ChildComponent({ child }: { child: Child }) {
   const deleteChild = async () => {
     try {
       console.log("Deleting child:", child.id);
-      const response = await ApiManager.getInstance().delete(`/child/${child.id}`);
+      const response = await ApiManager.getInstance().delete(
+        `/child/${child.id}`,
+      );
 
       if (response.status !== 200) {
-        console.error("Failed to delete child:", response.status, response.data);
+        console.error(
+          "Failed to delete child:",
+          response.status,
+          response.data,
+        );
         Alert.alert("Erreur", "Impossible de supprimer cet enfant.");
         return;
       }
@@ -43,7 +49,10 @@ export default function ChildComponent({ child }: { child: Child }) {
       router.replace("/childs");
     } catch (error) {
       console.error("Error deleting child:", error);
-      Alert.alert("Erreur", "Une erreur est survenue lors de la suppression de l'enfant.");
+      Alert.alert(
+        "Erreur",
+        "Une erreur est survenue lors de la suppression de l'enfant.",
+      );
     }
   };
 
@@ -54,27 +63,27 @@ export default function ChildComponent({ child }: { child: Child }) {
       [
         {
           text: "Annuler",
-          style: "cancel"
+          style: "cancel",
         },
-        { 
-          text: "Supprimer", 
+        {
+          text: "Supprimer",
           onPress: deleteChild,
-          style: "destructive"
-        }
-      ]
+          style: "destructive",
+        },
+      ],
     );
   };
 
-  const name =  `${child.nickname}`;
+  const name = `${child.nickname}`;
   const avatar = child.avatar || "sanglier"; // Default to "sanglier" if no avatar is set
 
   return (
     <View style={tw`mx-4 w-24`}>
-      <Avatar 
-        onPress={handlePress} 
+      <Avatar
+        onPress={handlePress}
         onLongPress={handleLongPress}
-        title={name} 
-        imageUrl={`${process.env.EXPO_PUBLIC_API_URL}/uploads/avatars/${avatar}.png`} 
+        title={name}
+        imageUrl={`${process.env.EXPO_PUBLIC_API_URL}/uploads/avatars/${avatar}.png`}
       />
     </View>
   );

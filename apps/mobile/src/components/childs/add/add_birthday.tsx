@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { Text, View } from "react-native";
 import tw from "twrnc";
 import { Button } from "~/components/ui/Button";
 import { useState } from "react";
@@ -33,14 +33,23 @@ export default function AddBirthday({ errors, setData, setContinue }: Props) {
         <Text style={tw`text-gray-700 text-base mt-2 px-5`}>
           Date de naissance sélectionnée:
         </Text>
-        <Text style={tw`text-white w-full bg-gray-500 text-center text-base mt-2 px-5 py-2 rounded-lg`}>
-          {date.toLocaleDateString('fr-FR')}
+        <Text
+          style={tw`text-white w-full bg-gray-500 text-center text-base mt-2 px-5 py-2 rounded-lg`}
+        >
+          {date.toLocaleDateString("fr-FR")}
         </Text>
         <Text style={tw`text-gray-500 text-xs mt-2 w-full text-center`}>
-          Votre enfant a donc {Math.floor((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * 365))} ans.
+          Votre enfant a donc{" "}
+          {Math.floor(
+            (new Date().getTime() - date.getTime()) /
+              (1000 * 60 * 60 * 24 * 365),
+          )}{" "}
+          ans.
         </Text>
       </View>
-      <Button onPress={() => setDatePickerVisibility(true)} >Modifier la date de naissance</Button>
+      <Button onPress={() => setDatePickerVisibility(true)}>
+        Modifier la date de naissance
+      </Button>
       <Text style={tw`text-gray-500 text-xs mt-2 px-5`}>
         La date de naissance est utilisée pour calculer l'âge de l'enfant et
         pour des fonctionnalités liées à l'âge.
@@ -53,5 +62,4 @@ export default function AddBirthday({ errors, setData, setContinue }: Props) {
       />
     </View>
   );
-
 }

@@ -13,10 +13,10 @@ export default class Category {
 
   constructor(category: Partial<Category>) {
     this.id = category.id || 0;
-    this.name = category.name || '';
+    this.name = category.name || "";
     this.description = category.description || null;
     this.icon = category.icon || null;
-    this.color = category.color || 'red'; // Default color set to red
+    this.color = category.color || "red"; // Default color set to red
     this.activities = category.activities || [];
 
     this.createdAt = new Date(category.createdAt || Date.now());

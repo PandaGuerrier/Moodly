@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import tw from "twrnc";
 import Child from "~/models/child";
 import { DefaultActivity } from "~/models/activity";

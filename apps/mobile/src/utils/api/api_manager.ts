@@ -35,7 +35,10 @@ export class ApiManager {
 
   public setAuthorization(token: string) {
     this.api.defaults.headers.Authorization = `Bearer ${token}`;
-    console.log("Setting Authorization header:", this.api.defaults.headers.Authorization);
+    console.log(
+      "Setting Authorization header:",
+      this.api.defaults.headers.Authorization,
+    );
   }
 
   public removeAuthorization() {
@@ -70,7 +73,12 @@ export class ApiManager {
     return !!this.api.defaults.headers.Authorization;
   }
 
-  public async post(url: string, data: any, headers = {}, bypassAuth: boolean = false) {
+  public async post(
+    url: string,
+    data: any,
+    headers = {},
+    bypassAuth: boolean = false,
+  ) {
     if (bypassAuth) {
       console.log("Bypassing authorization for POST request:", url);
       return await this.api.post(url, data);
@@ -94,7 +102,6 @@ export class ApiManager {
       return error;
     }
   }
-
 
   public async postFormData(url: string, formData: FormData, headers = {}) {
     const isAuthorized = await this.checkAuthorization();

@@ -1,9 +1,9 @@
-import { Text, View, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import Connexion from "~/components/pages/connexion";
-import Childs from '~/app/childs'
-import User from '~/models/user'
-import { useRouter } from 'expo-router'
+import Childs from "~/app/childs";
+import User from "~/models/user";
+import { useRouter } from "expo-router";
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,7 @@ export default function HomePage() {
       ) : user ? (
         <Childs />
       ) : (
-          <Connexion />
+        <Connexion />
       )}
     </>
   );

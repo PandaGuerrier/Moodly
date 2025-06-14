@@ -1,10 +1,17 @@
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera'
-import { useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import tw from 'twrnc'
-import { ApiManager } from '~/utils/api/api_manager'
-import { AxiosError } from 'axios'
-import User from '~/models/user'
+import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
+import { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import tw from "twrnc";
+import { ApiManager } from "~/utils/api/api_manager";
+import { AxiosError } from "axios";
+import User from "~/models/user";
 
 export default function Chat() {
   const [facing, setFacing] = useState<CameraType>("back");
@@ -82,17 +89,31 @@ export default function Chat() {
       <CameraView style={tw`flex-1`} facing={facing} ref={ref}>
         <View style={tw`h-[100%] flex items-center justify-end py-8`}>
           {loading ? (
-            <View style={[
-              tw`p-5 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
-              { borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.4)', shadowColor: '#fff', shadowOpacity: 0.1, shadowRadius: 15 }
-            ]}>
+            <View
+              style={[
+                tw`p-5 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
+                {
+                  borderWidth: 0.5,
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  shadowColor: "#fff",
+                  shadowOpacity: 0.1,
+                  shadowRadius: 15,
+                },
+              ]}
+            >
               <ActivityIndicator size="large" color="white" />
             </View>
           ) : message ? (
             <Text
               style={[
                 tw`text-white text-md p-4 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
-                { borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.4)', shadowColor: '#fff', shadowOpacity: 0.1, shadowRadius: 15 }
+                {
+                  borderWidth: 0.5,
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  shadowColor: "#fff",
+                  shadowOpacity: 0.1,
+                  shadowRadius: 15,
+                },
               ]}
             >
               {message}
@@ -101,7 +122,13 @@ export default function Chat() {
             <Text
               style={[
                 tw`text-white text-md p-4 bg-gray-400/40 backdrop-blur-xl rounded-2xl mb-4 shadow-xl`,
-                { borderWidth: 0.5, borderColor: 'rgba(255, 255, 255, 0.4)', shadowColor: '#fff', shadowOpacity: 0.1, shadowRadius: 15 }
+                {
+                  borderWidth: 0.5,
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  shadowColor: "#fff",
+                  shadowOpacity: 0.1,
+                  shadowRadius: 15,
+                },
               ]}
             >
               Prenez une photo pour commencer

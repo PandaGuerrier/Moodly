@@ -70,7 +70,11 @@ export default function ActivityShow({
           )}
         >
           <View style={tw`bg-${activityColor}-500 p-6 rounded-full`}>
-            <FontAwesome name={activityIcon} size={48} style={tw`text-${activityColor}-200`} />
+            <FontAwesome
+              name={activityIcon}
+              size={48}
+              style={tw`text-${activityColor}-200`}
+            />
           </View>
         </Pressable>
         <Text

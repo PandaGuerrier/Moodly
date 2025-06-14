@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import React, { useCallback, useRef, useState } from "react";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
   BottomSheetModal,
-  BottomSheetView,
   BottomSheetModalProvider,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { Button } from "~/components/ui/Button";
 import { useForm } from "~/utils/api/form";

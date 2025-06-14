@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { Text, View } from "react-native";
 import { Input } from "~/components/ui/Input";
 import tw from "twrnc";
 
@@ -10,12 +10,12 @@ interface Props {
 
 export default function AddNickname({ errors, setData, setContinue }: Props) {
   const handleChange = (key: string, value: string) => {
-    console.log(value)
+    console.log(value);
     setData("nickname", value);
     if (setContinue) {
       setContinue(value.length > 0);
     }
-  }
+  };
 
   return (
     <View>
@@ -31,5 +31,4 @@ export default function AddNickname({ errors, setData, setContinue }: Props) {
       </Text>
     </View>
   );
-
 }

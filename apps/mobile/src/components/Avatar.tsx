@@ -3,9 +3,9 @@ import {
   Image,
   Pressable,
   PressableProps,
+  StyleSheet,
   Text,
   View,
-  StyleSheet,
 } from "react-native";
 
 import tw from "twrnc";
@@ -57,7 +57,9 @@ export const Avatar = React.forwardRef<
             uri: imageUrl,
           }}
         />
-        <Text style={tw`text-center text-base font-semibold text-white w-full `}>
+        <Text
+          style={tw`text-center text-base font-semibold text-white w-full `}
+        >
           {title}
         </Text>
       </Pressable>

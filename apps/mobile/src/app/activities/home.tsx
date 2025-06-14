@@ -1,12 +1,11 @@
 import { JSX, useEffect, useState } from "react";
 import Child from "~/models/child";
-import { DefaultActivity } from "~/models/activity";
 import User from "~/models/user";
 import DefaultActivitiesManager from "~/managers/default_activities_manager";
 import Show from "~/app/activities/show";
 import Chat from "~/app/activities/chat";
 import Dictee from "~/app/activities/mode/dictee";
-import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import tw from "twrnc";
 import Category from "~/models/category";
@@ -48,22 +47,24 @@ export default function Home() {
     {
       name: "Accueil",
       icon: "home",
-      content: <Show child={child!} categories={categories} />
+      content: <Show child={child!} categories={categories} />,
     },
     {
       name: "Chat",
       icon: "comment",
-      content: <Chat />
+      content: <Chat />,
     },
     {
       name: "Paramètres",
       icon: "user",
-      content: <Dictee />
-    }
+      content: <Dictee />,
+    },
   ];
 
   // Find the current page content based on actualPage state
-  const currentPageContent = pages.find(page => page.name === actualPage)?.content;
+  const currentPageContent = pages.find(
+    (page) => page.name === actualPage,
+  )?.content;
 
   return (
     <View style={tw`flex-1`}>
@@ -74,25 +75,27 @@ export default function Home() {
       ) : (
         <View style={tw`flex-1`}>
           {/* Page Content */}
-          <View style={tw`flex-1`}>
-            {currentPageContent}
-          </View>
+          <View style={tw`flex-1`}>{currentPageContent}</View>
 
           {/* Tab Bar */}
-          <View style={tw`flex-row justify-around items-center bg-slate-900 py-2.5 border-t border-slate-700`}>
+          <View
+            style={tw`flex-row justify-around items-center bg-slate-900 py-2.5 border-t border-slate-700`}
+          >
             {pages.map((page, index) => (
-              <TouchableOpacity 
+              <TouchableOpacity
                 key={index}
-                style={tw`items-center p-2.5 ${actualPage === page.name ? 'opacity-100' : 'opacity-50'}`}
+                style={tw`items-center p-2.5 ${actualPage === page.name ? "opacity-100" : "opacity-50"}`}
                 onPress={() => setActualPage(page.name)}
               >
                 <FontAwesome
                   // @ts-ignore
                   name={page.icon}
-                  size={24} 
-                  color={actualPage === page.name ? "#60A5FA" : "#94A3B8"} 
+                  size={24}
+                  color={actualPage === page.name ? "#60A5FA" : "#94A3B8"}
                 />
-                <Text style={tw`${actualPage === page.name ? 'text-blue-400' : 'text-slate-400'} mt-1 text-xs`}>
+                <Text
+                  style={tw`${actualPage === page.name ? "text-blue-400" : "text-slate-400"} mt-1 text-xs`}
+                >
                   {page.name}
                 </Text>
               </TouchableOpacity>

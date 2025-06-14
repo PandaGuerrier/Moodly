@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { Image, Text, View } from "react-native";
 import { AvatarSelect } from "~/components/AvatarSelect";
 import tw from "twrnc";
 import React from "react";
@@ -30,7 +30,10 @@ export default function AddAvatar({ errors, setData }: Props) {
       <View style={tw`items-center mb-6`}>
         <Text>
           Avatar actuel :{" "}
-          <Text style={tw`text-blue-500 font-bold`}>{avatarOptions.find(avatar => avatar.value === actual)?.label || actual}</Text>
+          <Text style={tw`text-blue-500 font-bold`}>
+            {avatarOptions.find((avatar) => avatar.value === actual)?.label ||
+              actual}
+          </Text>
         </Text>
         <Image
           style={tw`w-36 h-36 rounded-full border-2 border-white`}

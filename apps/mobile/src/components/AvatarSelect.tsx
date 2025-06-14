@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Image,
-  Pressable,
-  PressableProps,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Image, Pressable, PressableProps, View } from "react-native";
 
 import tw from "twrnc";
 import * as Haptics from "expo-haptics";
@@ -35,10 +28,7 @@ export const AvatarSelect = React.forwardRef<
         onPressIn={() => setIsClicked(true)}
         onPressOut={() => setIsClicked(false)}
         className={"duration"}
-        style={tw.style(
-          `rounded-full ` +
-            (isClicked ? "scale-95 " : " ")
-        )}
+        style={tw.style(`rounded-full ` + (isClicked ? "scale-95 " : " "))}
       >
         <Image
           style={tw`w-24 h-24 rounded-full border-2 border-white`}

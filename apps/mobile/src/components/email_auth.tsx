@@ -5,8 +5,12 @@ export function EmailAuthButton() {
   const router = useRouter();
 
   return (
-    <Button disabled={true} fullWidth={true} onPress={() => router.push("/auth/email")}>
-        Authentification par Email
+    <Button
+      disabled={true}
+      fullWidth={true}
+      onPress={() => router.push("/auth/email")}
+    >
+      Authentification par Email
     </Button>
   );
 }

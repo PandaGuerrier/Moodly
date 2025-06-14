@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Pressable, PressableProps, Text, View } from "react-native";
-
-import { cn } from "~/utils/cn";
+import React, { useState } from "react";
+import { Pressable, PressableProps, Text } from "react-native";
 import tw from "twrnc";
 import * as Haptics from "expo-haptics";
 
 const styles = {
   solid: "bg-blue-500 border-blue-500 shadow-sm shadow-blue-500 ",
-  outline: "bg-white border border-gray-300 text-black shadow-sm shadow-gray-300 ",
+  outline:
+    "bg-white border border-gray-300 text-black shadow-sm shadow-gray-300 ",
   danger: "bg-red-500 border-red-500 shadow-sm shadow-red-500 ",
   success: "bg-green-500 border-green-500 shadow-sm shadow-green-500 ",
 };
