@@ -17,6 +17,17 @@ export default class DefaultActivity extends BaseModel {
   declare type: 'photo' | 'calcul' | 'dictee' | 'audio'
 
   @column()
+  declare difficulty: number // 1 to 100
+
+  @column()
+  declare age: number // Age for which the activity is suitable, e.g., 6 for 6 years old
+
+  @column()
+  declare maxAge: number // Maximum age for which the activity is suitable, e.g., 12 for 12 years old
+
+  // for exemple this activity is for 6 to 12 years old
+
+  @column()
   declare isActive: boolean
 
   @column({
@@ -24,6 +35,9 @@ export default class DefaultActivity extends BaseModel {
     prepare: (value: any) => JSON.stringify(value),
   })
   declare data: any
+
+  @column()
+  declare categoryId: number
 
   @beforeCreate()
   static async setDefaultValues(activity: DefaultActivity) {
