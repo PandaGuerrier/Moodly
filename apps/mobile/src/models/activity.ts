@@ -1,3 +1,5 @@
+import Category from "~/models/category";
+
 export default class Activity {
   id: number
   defaultActivity: DefaultActivity
@@ -55,4 +57,8 @@ export type DefaultActivity = {
   isActive: boolean
   type: 'photo' | 'calcul' | 'dictee' | 'audio'
   data: any
+  age: number
+  maxAge: number | null
+  difficulty: number // 1 to 100
+  category: Category
 }

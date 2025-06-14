@@ -9,11 +9,12 @@ import Dictee from "~/app/activities/mode/dictee";
 import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import tw from "twrnc";
+import Category from "~/models/category";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [child, setChild] = useState(null as Child | null);
-  const [activities, setActivities] = useState([] as DefaultActivity[]);
+  const [categories, setCategories] = useState([] as Category[]);
   const [actualPage, setActualPage] = useState("Accueil");
 
   useEffect(() => {
@@ -31,8 +32,8 @@ export default function Home() {
       });
 
     DefaultActivitiesManager.fetch()
-      .then((fetchedActivities) => {
-        setActivities(fetchedActivities);
+      .then((fetchedCategories) => {
+        setCategories(fetchedCategories);
       })
       .finally(() => {
         setIsLoading(false);
@@ -47,7 +48,7 @@ export default function Home() {
     {
       name: "Accueil",
       icon: "home",
-      content: <Show child={child!} defaultActivities={activities} />
+      content: <Show child={child!} categories={categories} />
     },
     {
       name: "Chat",

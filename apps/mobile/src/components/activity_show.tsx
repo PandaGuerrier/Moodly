@@ -1,80 +1,84 @@
-import React, { useEffect, useState } from 'react'
-import { Pressable, PressableProps, Text, View } from "react-native";
-
-import { cn } from "~/utils/cn";
+import React, { useState } from "react";
+import { Pressable, Text, View } from "react-native";
 import tw from "twrnc";
-import * as Haptics from 'expo-haptics'
-import { DefaultActivity } from '~/models/activity'
-import { useRouter } from 'expo-router'
+import * as Haptics from "expo-haptics";
+import { DefaultActivity } from "~/models/activity";
+import { useRouter } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 
 interface ActivityShowProps {
-  activity: DefaultActivity
+  activity: DefaultActivity;
+  right?: boolean;
 }
 
 // Function to get color based on activity type
 const getActivityColor = (type: string) => {
-  switch(type) {
-    case 'photo':
-      return 'bg-blue-600 border-blue-500';
-    case 'calcul':
-      return 'bg-green-600 border-green-500';
-    case 'dictee':
-      return 'bg-purple-600 border-purple-500';
-    case 'audio':
-      return 'bg-orange-600 border-orange-500';
+  switch (type) {
+    case "photo":
+      return "blue";
+    case "calcul":
+      return "green";
+    case "dictee":
+      return "purple";
+    case "audio":
+      return "orange";
     default:
-      return 'bg-gray-600 border-gray-500';
+      return "gray";
   }
 };
 
 // Function to get icon based on activity type
 const getActivityIcon = (type: string) => {
-  switch(type) {
-    case 'photo':
-      return 'camera';
-    case 'calcul':
-      return 'calculator';
-    case 'dictee':
-      return 'pencil';
-    case 'audio':
-      return 'headphones';
+  switch (type) {
+    case "photo":
+      return "camera";
+    case "calcul":
+      return "calculator";
+    case "dictee":
+      return "pencil";
+    case "audio":
+      return "headphones";
     default:
-      return 'star';
+      return "star";
   }
 };
 
-export default function ActivityShow ({ activity }: ActivityShowProps) {
+export default function ActivityShow({
+  activity,
+  right = false,
+}: ActivityShowProps) {
   const [isClicked, setIsClicked] = useState(false);
   const router = useRouter();
   const activityColor = getActivityColor(activity.type);
   const activityIcon = getActivityIcon(activity.type);
 
   return (
-    <View>
-      <Pressable
-        onPress={async () => {
-          await Haptics.selectionAsync()
-          router.push(`/activities/${activity.id}`)
-        }}
-        onPressIn={() => setIsClicked(true)}
-        onPressOut={() => setIsClicked(false)}
-        style={tw.style(
-          `flex-row items-center justify-between py-4 px-6 text-lg rounded-lg border ${activityColor} shadow-md ` +
-            (isClicked ? "scale-95 " : ' ')
-        )}
-      >
-        <View style={tw`flex-row items-center`}>
-          <View style={tw`mr-3 bg-white/20 p-2 rounded-full`}>
-            <FontAwesome name={activityIcon} size={18} color="#ffffff" />
+    <View
+      style={tw`flex flex-col w-full p-4 ${right ? "items-end" : "items-start"}`}
+    >
+      <View style={tw`flex flex-col items-center justify-center`}>
+        <Pressable
+          onPress={async () => {
+            await Haptics.selectionAsync();
+            router.push(`/activities/${activity.id}`);
+          }}
+          onPressIn={() => setIsClicked(true)}
+          onPressOut={() => setIsClicked(false)}
+          style={tw.style(
+            `flex-row items-center justify-between text-lg rounded-full shadow-md ` +
+              (isClicked ? "scale-95 " : " "),
+          )}
+        >
+          <View style={tw`bg-${activityColor}-500 p-6 rounded-full`}>
+            <FontAwesome name={activityIcon} size={48} style={tw`text-${activityColor}-200`} />
           </View>
-          <Text
-            style={tw`text-base font-semibold text-white`}>
-            {activity.name}
-          </Text>
-        </View>
-        <FontAwesome name="chevron-right" size={14} color="#ffffff" />
-      </Pressable>
+        </Pressable>
+        <Text
+          style={tw`text-base font-semibold text-${activityColor}-300 mt-2`}
+        >
+          {activity.name}
+        </Text>
+      </View>
     </View>
   );
-};
+}
