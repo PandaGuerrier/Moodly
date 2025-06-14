@@ -16,29 +16,18 @@ export default class User {
   deletedAt?: Date | null;
   private static instance: User | null;
 
-  constructor(
-    id: number,
-    email: string,
-    fullName: string,
-    appleIdToken: string,
-    appleAuthorizationCode: string,
-    appleUser: string,
-    childs: Child[],
-    createdAt: Date,
-    updatedAt: Date,
-    deletedAt?: Date | null,
-  ) {
-    this.id = id;
-    this.email = email;
-    this.fullName = fullName;
-    this.appleIdToken = appleIdToken;
-    this.appleAuthorizationCode = appleAuthorizationCode;
-    this.appleUser = appleUser;
-    this.childs = childs;
+  constructor(user: Partial<User>) {
+    this.id = user.id || 0; // Default to 0 if not provided
+    this.email = user.email || '';
+    this.fullName = user.fullName || '';
+    this.appleIdToken = user.appleIdToken || '';
+    this.appleAuthorizationCode = user.appleAuthorizationCode || '';
+    this.appleUser = user.appleUser || '';
+    this.childs = user.childs || [];
     this.selectedChild = null; // Initialize selectedChild as null
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-    this.deletedAt = deletedAt || null;
+    this.createdAt = user.createdAt ? new Date(user.createdAt) : new Date(); // Default to current date if not provided
+    this.updatedAt = user.updatedAt ? new Date(user.updatedAt) : new Date(); // Default to current date if not provided
+    this.deletedAt = user.deletedAt || null;
     User.instance = this; // Set the singleton instance
   }
 
@@ -146,17 +135,17 @@ export default class User {
   }
 
   static fromJSON(json: any): User {
-    return new User(
-      json.id,
-      json.email,
-      json.fullName,
-      json.appleIdToken,
-      json.appleAuthorizationCode,
-      json.appleUser,
-      json.childs.map((child: any) => Child.fromJSON(child)),
-      new Date(json.createdAt),
-      new Date(json.updatedAt),
-      json.deletedAt ? new Date(json.deletedAt) : null,
-    );
+    return new User({
+      id: json.id,
+      email: json.email,
+      fullName: json.fullName,
+      appleIdToken: json.appleIdToken,
+      appleAuthorizationCode: json.appleAuthorizationCode,
+      appleUser: json.appleUser,
+      childs: json.childs ? json.childs.map((child: any) => Child.fromJSON(child)) : [],
+      createdAt: new Date(json.createdAt),
+      updatedAt: new Date(json.updatedAt),
+      deletedAt: json.deletedAt ? new Date(json.deletedAt) : null,
+    });
   }
 }
